@@ -1,8 +1,15 @@
 import React from 'react'
+import { Login } from './Login'
+import {ChatArea} from "../components/ChatArea"
+import {ChatInput} from "../components/ChatInput"
 
 const ChatScreen = () => {
   return (
-    <div>ChatScreen</div>
+    <div>
+      <ChatArea/>
+      <ChatInput/>
+      
+    </div>
   )
 }
 
