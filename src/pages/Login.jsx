@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TypeAnimation } from 'react-type-animation';
 import pic from '../assets/img.png';
 import { useAuth } from '../context/AuthContext';
 
 export const Login = () => {
   const { signInWithGoogle, currentUser, loading } = useAuth();
+  const navigate = useNavigate();
 
   // Debug logging
   useEffect(() => {
@@ -25,17 +26,12 @@ export const Login = () => {
     );
   }
 
-  // Redirect to chat if already authenticated
-  if (currentUser) {
-    console.log('Redirecting to chat, user:', currentUser);
-    return <Navigate to="/chat" replace />;
-  }
-
   // Handle Google sign-in
   const handleLogin = async () => {
     try {
       console.log('Initiating Google sign-in...');
       await signInWithGoogle();
+      navigate("/chat");
     } catch (error) {
       console.error('Google sign-in failed:', error);
     }
@@ -50,7 +46,7 @@ export const Login = () => {
       >
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-30"></div>
-        
+
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center px-8">
             <TypeAnimation
